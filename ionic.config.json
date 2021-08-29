@@ -1,0 +1,7 @@
+{
+  "name": "bulb",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
