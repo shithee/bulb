@@ -6,7 +6,7 @@ import { IonApp, IonRouterOutlet, IonIcon } from "@ionic/react";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 import "../src/assets/css/style.css";
-import { checkmarkCircle, ellipseOutline } from "ionicons/icons";
+import { Storage } from "@ionic/storage";
 
 /* Basic CSS for apps built with Ionic */
 // import '@ionic/react/css/normalize.css';
@@ -26,47 +26,43 @@ import "./theme/variables.css";
 import logo from "../src/assets/image/logo-full.png";
 
 import Header from "./components/header";
-import { useState } from "react";
-import { getallbulbs } from './core';
+import { useState, useEffect } from "react";
+import { refactorData } from "./core";
+import Day from "./components/day";
+import { TasksInterface } from "./interfaces";
 
 const App: React.FC = () => {
-  const [bulbs, setbulbs] = useState(getallbulbs());
-  console.log(bulbs);
+  const store = new Storage();
+  store.create();
+  const [alltasks, setTasks] = useState<TasksInterface[]>([]);
+
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasksFromServer = await fetchlocal("tasks");
+      let refactored = refactorData(tasksFromServer);
+      setTasks(refactored);
+      await updatelocal("tasks", JSON.stringify(refactored));
+    };
+    getTasks();
+  }, []);
+
+  const fetchlocal = async (key: string) => {
+    const tasks = await store.get(key);
+    return tasks;
+  };
+
+  const updatelocal = async (key: string, data: any) => {
+    await store.set(key, data);
+  };
 
   return (
     <IonApp>
       <Header logo={logo} />
       <div className="pagecontainer">
         <div className="page h100 fcol">
-          <div className="card h100 pad">
-            <p className="heading b">28.08.2021</p>
-            <div className="todolist">
-              <div className="todo finished f cent jstart">
-                <input
-                  readOnly
-                  value="Prototype Bulb Design"
-                  placeholder="Add a task"
-                />
-                <IonIcon icon={checkmarkCircle}></IonIcon>
-              </div>
-              {/* <div className="todo active f cent jstart">
-                      <input value="Prototype Bulb Design" placeholder="Add a task" />
-                      <IonIcon icon={ellipseOutline}></IonIcon>
-                  </div>
-                  <div className="todo f cent jstart">
-                      <input value="" placeholder="" />
-                      <IonIcon icon={ellipseOutline}></IonIcon>
-                  </div>
-                  <div className="todo f cent jstart">
-                      <input value="" placeholder="" />
-                      <IonIcon icon={ellipseOutline}></IonIcon>
-                  </div>
-                  <div className="todo f cent jstart">
-                      <input value="" placeholder="" />
-                      <IonIcon icon={ellipseOutline}></IonIcon>
-                  </div> */}
-            </div>
-          </div>
+          {alltasks.map((task,i) => {
+			  return <Day currentday={task} key={i} />
+          })}
         </div>
       </div>
     </IonApp>
