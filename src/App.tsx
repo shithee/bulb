@@ -60,8 +60,8 @@ const App: React.FC = () => {
       <Header logo={logo} />
       <div className="pagecontainer">
         <div className="page h100 fcol">
-          {alltasks.map((task,i) => {
-			  return <Day currentday={task} key={i} />
+          {alltasks.map((task, i) => {
+            return <Day currentday={task} key={i} />;
           })}
         </div>
       </div>

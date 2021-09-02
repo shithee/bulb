@@ -216,6 +216,7 @@ body {
 .pagecontainer {
     height: calc( 100vh - 50px);
     margin-top: 50px;
+    overflow-y: scroll;
 }
 
 .heading {
@@ -394,4 +395,8 @@ img.app,
     justify-content: center;
     align-items: start;
     margin-left: 20px;
+}
+
+.page .card {
+    height: calc( 100vh - 50px);
 }

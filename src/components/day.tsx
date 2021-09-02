@@ -3,7 +3,9 @@ import { checkmarkCircle, ellipseOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import { TasksInterface } from "../interfaces";
 
-const Day: React.FC <{ currentday : TasksInterface, key : number }>= ({ currentday }) => {
+const Day: React.FC<{ currentday: TasksInterface; key: number }> = ({
+  currentday,
+}) => {
   return (
     <div className="card h100 pad">
       <p className="heading b">{currentday.text}</p>
