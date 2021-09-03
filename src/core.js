@@ -47,4 +47,13 @@ const getweekdata = () => {
     return week;
 };
 
-export { refactorData };
+const getemptytask = () => {
+    return {
+        id: Math.floor(Math.random() * (1000 + 1)),
+        name: "Task 1",
+        status: true,
+        active: false
+    }
+}
+
+export { refactorData, getemptytask };

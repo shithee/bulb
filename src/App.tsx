@@ -26,8 +26,8 @@ import "./theme/variables.css";
 import logo from "../src/assets/image/logo-full.png";
 
 import Header from "./components/header";
-import { useState, useEffect } from "react";
-import { refactorData } from "./core";
+import { useState, useEffect, createContext } from "react";
+import { refactorData,getemptytask } from "./core";
 import Day from "./components/day";
 import { TasksInterface } from "./interfaces";
 
@@ -35,6 +35,7 @@ const App: React.FC = () => {
   const store = new Storage();
   store.create();
   const [alltasks, setTasks] = useState<TasksInterface[]>([]);
+  const lines = parseInt(((window.innerHeight - 110) / 55).toString());
 
   useEffect(() => {
     const getTasks = async () => {
@@ -55,13 +56,37 @@ const App: React.FC = () => {
     await store.set(key, data);
   };
 
+  const updateData = (op: any) => {
+    let existing =
+      alltasks[op.dy] &&
+      alltasks[op.dy].tasks &&
+      alltasks[op.dy].tasks[op.lineindex]
+        ? alltasks[op.dy].tasks[op.lineindex]
+        : getemptytask();
+    existing.name = op.text;
+    alltasks[op.dy].tasks.map( t => delete t.active );
+    if(!existing.active){
+        existing.active = true;
+    }
+    alltasks[op.dy].tasks[op.lineindex] = existing;
+    setTasks(alltasks);
+  };
+
   return (
     <IonApp>
       <Header logo={logo} />
       <div className="pagecontainer">
         <div className="page h100 fcol">
           {alltasks.map((task, i) => {
-            return <Day currentday={task} key={i} />;
+            return (
+              <Day
+                currentday={task}
+                update={updateData}
+                dayindex={i}
+                line={lines}
+                key={i}
+              />
+            );
           })}
         </div>
       </div>

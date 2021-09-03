@@ -400,3 +400,7 @@ img.app,
 .page .card {
     height: calc( 100vh - 50px);
 }
+
+::-webkit-input-placeholder {
+    color: var(--border-visible-light);
+}

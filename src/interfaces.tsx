@@ -7,4 +7,6 @@ export interface TasksInterface {
 export interface TaskInterface {
   id?: number;
   name?: string;
+  status?: boolean;
+  active?: boolean;
 }
