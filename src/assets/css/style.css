@@ -118,7 +118,7 @@ html,
 body {
     width: 100%;
     height: 100%;
-    overflow: auto;
+    /* overflow: auto; */
 }
 
 .f {
@@ -398,9 +398,14 @@ img.app,
 }
 
 .page .card {
-    height: calc( 100vh - 50px);
+    /* height: calc( 100vh - 50px); */
 }
 
 ::-webkit-input-placeholder {
     color: var(--border-visible-light);
+}
+
+.pagecontainer .page {
+    /* height: calc( 100% - 26px); */
+    transition: transform 750ms ease-in-out;
 }

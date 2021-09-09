@@ -11,7 +11,7 @@ const Note: React.FC<{
   lineindex: number;
   currentTask: TaskInterface;
 }> = ({ line, onUpdate, dy, lineindex, currentTask }) => {
-  let place = line == 0 ? "Add first task of the day !" : "";
+  let place = lineindex == 0 ? "Add first task of the day !" : "";
   const handleEdit = (text: string) => {
     onUpdate({
       text,
@@ -22,7 +22,7 @@ const Note: React.FC<{
   return (
     <div
       className={`todo f cent jstart ${currentTask.active ? "active" : ""}`}
-      data-key={line}
+      data-key={lineindex}
     >
       <input
         value={currentTask.name}

@@ -27,15 +27,19 @@ import logo from "../src/assets/image/logo-full.png";
 
 import Header from "./components/header";
 import { useState, useEffect, createContext } from "react";
-import { refactorData,getemptytask } from "./core";
+import { refactorData, getemptytask } from "./core";
 import Day from "./components/day";
 import { TasksInterface } from "./interfaces";
+import { useSwipeable } from "react-swipeable";
 
 const App: React.FC = () => {
   const store = new Storage();
   store.create();
   const [alltasks, setTasks] = useState<TasksInterface[]>([]);
+  const [current, setcurrentpage] = useState<number>(0);
+  const [swipe_style, setswipestyle] = useState<string>("0px");
   const lines = parseInt(((window.innerHeight - 110) / 55).toString());
+  const single_card_height = window.innerHeight - 24;
 
   useEffect(() => {
     const getTasks = async () => {
@@ -64,19 +68,41 @@ const App: React.FC = () => {
         ? alltasks[op.dy].tasks[op.lineindex]
         : getemptytask();
     existing.name = op.text;
-    alltasks[op.dy].tasks.map( t => delete t.active );
-    if(!existing.active){
-        existing.active = true;
+    alltasks[op.dy].tasks.map((t) => delete t.active);
+    if (!existing.active) {
+      existing.active = true;
     }
     alltasks[op.dy].tasks[op.lineindex] = existing;
     setTasks(alltasks);
   };
 
+  const handlers = useSwipeable({
+    onSwipedUp: () => {
+      let new_page = current + 1;
+      let new_style = `${new_page * -1 * single_card_height}px`;
+      setcurrentpage(new_page);
+      setswipestyle(new_style);
+    },
+    onSwipedDown: () => {
+      if (current < 1) return;
+      let new_page = current - 1;
+      let new_style = `${new_page * -1 * single_card_height}px`;
+      setcurrentpage(new_page);
+      setswipestyle(new_style);
+    },
+    preventDefaultTouchmoveEvent: true,
+  });
+
   return (
     <IonApp>
       <Header logo={logo} />
       <div className="pagecontainer">
-        <div className="page h100 fcol">
+        <div
+          className="page fcol h100"
+          data-page={current}
+          {...handlers}
+          style={{ transform: `translateY(${swipe_style})` }}
+        >
           {alltasks.map((task, i) => {
             return (
               <Day
