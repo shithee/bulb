@@ -92,8 +92,8 @@ video {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
     font: inherit;
+    font-size: 16px;
     vertical-align: baseline;
     font-family: Inter;
     color: var(--primarycolor)
@@ -118,7 +118,7 @@ html,
 body {
     width: 100%;
     height: 100%;
-    /* overflow: auto; */
+    overflow: auto;
 }
 
 .f {
@@ -196,6 +196,7 @@ body {
     --white: #FDFEFE;
     --yellow: #ecc217;
     --red: #F43F3F;
+    --brightyellow: #FFFC00;
 }
 
 
@@ -217,195 +218,197 @@ body {
     height: calc( 100vh - 50px);
     margin-top: 50px;
     overflow-y: scroll;
+    background: var(--white);
 }
 
-.heading {
-    font-size: 14px;
-    color: var(--grey);
-    margin: 10px 0px 15px 0px;
+.log-container {
+    margin: 60px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    background: var(--white);
+}
+
+.log-container img {
+    margin-bottom: 40px;
+    height: 200px;
+}
+
+.input-container {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.str {
+    align-self: stretch;
+}
+
+.input-container label {
+    font-size: 80%;
+    margin-bottom: 7px;
+    color: grey;
+    display: block;
     text-transform: uppercase;
 }
 
-.todolist {
-    margin-top: 22px;
-    padding: 0px 7px;
+input {
+    border: 1px solid #80808047;
+    padding: 12px 10px;
+    font-size: 16px;
 }
 
-.todo input {
-    font-size: var(--fontsize);
-    width: 100%;
-}
-
-.todo {
-    border-bottom: 1px solid var(--border-visible-light);
-    margin-bottom: 10px;
-    height: 40px;
-}
-
-.todo input,
-.todo input:active,
-.todo input:focus,
-.todo input:focus-within,
-.todo input:focus-visible {
-    border: none;
-    box-shadow: none;
+input:focus,
+input:focus-within,
+input:active,
+input:focus-visible {
+    border: 1px solid grey;
     outline: none;
 }
 
-.todo ion-icon {
-    font-size: 28px;
-    color: var(--grey);
-    margin-right: 10px;
-    display: none;
+button {
+    background: black;
+    color: white;
+    padding: 15px 15px;
+    align-self: stretch;
+    border-radius: 3px;
+    border: none;
+    font-size: 15px;
+    font-family: Inter;
 }
 
-.todo.active ion-icon,
-.todo.finished ion-icon {
-    display: inline-block;
+.draft {
+    margin: 10px 10px 15px 10px;
+    border-bottom: 1px solid #8080803b;
+    padding-bottom: 10px;
 }
 
-.todo.active {
-    border-bottom: 1px solid var(--primarycolor);
+.draft span {
+    font-size: 15px;
+    line-height: 1.6;
 }
 
-.todo.finished,
-.todo.finished input,
-.todo.finished ion-icon {
-    color: var(--yellow);
-    text-decoration: line-through;
+.draft-tabs {
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+    background: #f5f5f540;
 }
 
-.todo.finished input {
-    pointer-events: none;
-}
-
-#stats,
-#menu {
-    padding: 15px 20px;
-    overflow: scroll;
-}
-
-#stats section {
-    margin-top: 35px;
-}
-
-.statscard {
-    margin-top: 15px;
-    padding: 10px 5px;
-    /* border: 1px solid var(--border-visible-light); */
-    /* border-radius: 15px; */
-    /* background: var(--yellow); */
-}
-
-.list {
-    font-size: 14px;
-    padding: 10px 15px;
-    justify-content: space-between;
-    border: 1px solid var(--border-light);
-    margin-bottom: 15px;
-}
-
-.list .title span {
-    margin-left: 20px;
-}
-
-.list ion-icon {
-    font-size: 20px;
-}
-
-#stats .info {
-    text-align: center;
-    margin-bottom: 10px;
-    color: var(--grey);
-    font-size: 75%;
-}
-
-#stats img {
-    margin: 0px auto;
-    height: 180px;
-}
-
-.label {
-    font-size: 85%;
-    color: var(--grey);
-    margin: 10px 0px 20px 0px;
-}
-
-.badge {
-    justify-content: start;
-}
-
-.badgeinfo {
-    margin-top: 10px;
+.draft-tabs span {
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.badgeinfo .version {
-    font-size: 80%;
-    color: var(--grey);
-    margin-top: 5px;
-}
-
-img.app,
-#stats img.app {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
-
-.badge span {
-    font-size: 44px;
+.draft-tabs .active {
     color: var(--red);
 }
 
-#onboard {
-    padding: 25px 15px;
+.draft-contents {
+    padding: 10px 20px;
 }
 
-#onboard img {
-    width: auto;
-    height: 160px;
-    margin: 20px 0px 30px 0px;
+.draft-element h1 {
+    font-size: 26px;
+    margin: 20px 0px 25px;
 }
 
-.instruction .list ion-icon {
-    font-size: 30px;
+.image-list img {
+    height: 250px;
+    margin-bottom: 25px;
+    object-fit: cover;
+    width: 100%;
 }
 
-.instruction .list {
-    border: none;
-    width: 90%;
-    margin: 0px auto 10px auto;
-    max-width: 330px;
+img.selected {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    margin-bottom: 25px;
 }
 
-.list.okay {
-    width: fit-content;
-    background: var(--primary);
-    margin: 20px auto 30px auto;
-    border-radius: 3px;
-    font-size: 12px;
-    border: 1px solid var(--border-visible-light);
+.editor,
+.editor:focus-visible,
+[contenteditable],
+[contenteditable]:focus-visible {
+    min-height: 400px;
+    border: 1px solid #8080801f;
+    outline: none;
+    padding: 15px 10px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.draft-element {
+    margin-bottom: 25px;
+}
+
+select,
+select:focus-visible {
+    font-size: 16px;
+    color: #666;
+    height: 40px;
+    padding: 7px 10px;
+    border: 1px solid #8080801f;
+    background: white;
+}
+
+.mt25 {
+    margin-top: 25px;
+}
+
+.post-container .post {
+    margin-top: 20px;
+}
+
+.post ul {
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.post ol {
+    padding-left: 20px;
+    list-style-type: decimal;
+}
+
+.post li {
+    margin-bottom: 7px;
+    line-height: 1.6;
+}
+
+.post li::marker {
+    color: var(--grey);
+}
+
+.post-container h1 {
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.post-container p {
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.post-container {
+    margin-bottom: 25px;
+}
+
+.post-container .catagory {
+    background: whitesmoke;
     padding: 7px 12px;
+    text-align: center;
+    margin-bottom: 15px;
 }
 
-#menu .badge .badgeinfo {
-    margin-top: 0px;
-    justify-content: center;
-    align-items: start;
-    margin-left: 20px;
-}
-
-.page .card {
-    /* height: calc( 100vh - 50px); */
-}
-
-::-webkit-input-placeholder {
-    color: var(--border-visible-light);
-}
-
-.pagecontainer .page {
-    /* height: calc( 100% - 26px); */
-    transition: transform 750ms ease-in-out;
+.post-container img {
+    max-height: 250px;
+    margin-bottom: 15px;
+    object-fit: cover;
+    width: 100%;
 }
