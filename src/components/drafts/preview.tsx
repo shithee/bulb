@@ -22,6 +22,11 @@ const Preview: React.FC<{ data: draftInterface }> = ({ data }) => {
             lastupdated: Date.now(),
             status: true,
         };
+        if(postdata.post){
+            postdata.post = postdata.post.replace(/<([^ >]+)[^>]*>/ig,'<$1>');
+            postdata.post = postdata.post.replace('<span>','');
+            postdata.post = postdata.post.replace('</span>','');
+        }
         let token = await store.get("token");
         let response = await publishPost(postdata, token);
         if (response && response.code == 200) {

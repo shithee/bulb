@@ -9,11 +9,12 @@ const Home: React.FC = () => {
     const store = new Storage();
     const router = useIonRouter();
     store.create();
+    const [hpage, sethpage] = useState<number>(1);
     const [drafts, setDrafts] = useState<draftsinterface[]>([]);
     useEffect(() => {
         const getDrafts = async () => {
             let token = await store.get("token");
-            let response = await fetchDrafts(token);
+            let response = await fetchDrafts(token, hpage);
             if (
                 response &&
                 response.code == 200 &&
@@ -24,9 +25,12 @@ const Home: React.FC = () => {
             }
         };
         getDrafts();
-    }, []);
+    }, [hpage]);
     const viewDraft = async (id: string) => {
         router.push(`/drafts?id=${id}`, "forward", "push");
+    };
+    const loadmore = () => {
+        sethpage(hpage + 1);
     };
     return (
         <IonPage>
@@ -41,9 +45,20 @@ const Home: React.FC = () => {
                                 key={i}
                             >
                                 <span>{post.title}</span>
+                                <span className="f metadata">
+                                    <span className="tag">
+                                        {post.source_name}
+                                    </span>
+                                    <span className="smallletter">
+                                        {new Date(
+                                            post.created
+                                        ).toLocaleTimeString()}
+                                    </span>
+                                </span>
                             </div>
                         );
                     })}
+                    <button className="loadmore" onClick={loadmore}>Load more data</button>
                 </div>
             </div>
         </IonPage>

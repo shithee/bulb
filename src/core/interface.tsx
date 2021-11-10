@@ -1,6 +1,8 @@
 export interface draftsinterface{
     _id:string;
     title:string;
+    source_name:string;
+    created:string;
 }
 
 export interface draftInterface{

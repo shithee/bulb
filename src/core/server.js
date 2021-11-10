@@ -33,8 +33,8 @@ const verifyServer = async (passcode) => {
     }
 };
 
-const fetchDrafts = async (token) => {
-    let url = "https://api.cricketist.in/admin/api/drafts";
+const fetchDrafts = async (token,page) => {
+    let url = "https://api.cricketist.in/admin/api/drafts?page="+page;
     try {
         let apirequest = await fetch(url, {
             method: "GET",
